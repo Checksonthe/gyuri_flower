@@ -1,9 +1,40 @@
-{% if question_list %}
-    <ul>
-    {% for question in question_list %}
-        <li><a href="/pybo/{{ question.id }}/">{{ question.subject }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>질문이 없습니다.</p>
-{% endif %}
+
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'center.css' %}">
+<div class="container my-3">
+
+
+    <body>
+        <img id="center_img" src="/static/img/13.jpg" alt="장규리" style="width: 30%; height: 30%;">
+    </body>
+
+    <table class="table">
+        <thead>
+        <tr class="table-dark">
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성일시</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if question_list %}
+        {% for question in question_list %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>
+                <a href="{% url 'gyuri:detail' question.id %}">{{ question.subject }}</a>
+            </td>
+            <td>{{ question.create_date }}</td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="3">질문이 없습니다.</td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
